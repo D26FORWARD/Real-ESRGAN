@@ -26,52 +26,55 @@ Real-ESRGAN/
 ├── .pre-commit-config.yaml # pre-commit 钩子的配置 (代码质量检查)
 ├── .vscode/                # VSCode 编辑器设置 (可选，用于编辑器一致性)
 ├── CODE_OF_CONDUCT.md      # 社区行为准则
-├── LICENSE                 # 项目的许可证信息 (Apache 2.0)
+├── LICENSE                 # 项目的许可证信息 (BSD 3-Clause)
 ├── MANIFEST.in             # 指定在源码分发中包含的文件 (用于 PyPI 打包)
 ├── README.md               # 主要的项目描述、设置和使用指南 (这通常是您首先看到的内容!)
 ├── README_CN.md            # README 的中文版本
 ├── VERSION                 # 包含项目当前版本字符串的文件
-├── assets/                 # 文档中使用的图像、徽标和其他资源
-├── cog.yaml                # Cog 的配置，可能用于创建可复现的模型/演示
-├── cog_predict.py          # Cog 的预测脚本
+├── assets/                 # 文档中使用的图像、徽标和其他静态资源
+├── cog.yaml                # Cog 的配置，用于创建可复现的模型/演示 (通常与 Replicate 平台相关)
+├── cog_predict.py          # Cog 的预测接口脚本
 ├── docs/                   # 详细文档 (常见问题解答、训练指南、模型库、贡献指南等)
-├── experiments/            # 可能包含实验用的脚本或配置 (例如，预训练模型的下载链接)
+├── experiments/            # 实验性脚本或配置 (例如，预训练模型的下载信息存放处)
 ├── inference_realesrgan.py # 用于图像超分辨率推理的主要 Python 脚本
 ├── inference_realesrgan_video.py # 用于视频超分辨率推理的主要 Python 脚本
 ├── inputs/                 # 放置输入图像/视频的默认目录
-├── options/                # 用于训练和微调模型的配置文件 (YAML)
+├── options/                # 用于训练和微调模型的配置文件 (YAML 格式)
 ├── realesrgan/             # Real-ESRGAN 的核心 Python 包
 │   ├── __init__.py         # 将 'realesrgan' 声明为 Python 包
 │   ├── archs/              # 包含神经网络架构 (例如 SRVGGNet、判别器)
-│   ├── data/               # 训练时用于数据加载和预处理的工具
+│   ├── data/               # 训练时用于数据加载和预处理的工具模块
 │   ├── models/             # 模型定义，结合了架构、损失函数和优化逻辑
 │   ├── train.py            # 用于训练新模型的主要脚本
-│   └── utils.py            # 项目中使用的实用函数
+│   └── utils.py            # 项目中使用的通用辅助函数
 ├── requirements.txt        # 列出运行项目所需的 Python 依赖项
-├── scripts/                # 用于各种任务的辅助脚本 (例如数据准备、模型转换)
-├── setup.cfg               # setuptools (打包) 的配置
+├── scripts/                # 用于各种任务的辅助脚本 (例如数据准备、模型格式转换)
+├── setup.cfg               # setuptools (打包工具) 的配置文件
 ├── setup.py                # 用于构建和安装 Python 包的脚本
-├── tests/                  # 项目的单元测试和集成测试
+├── tests/                  # 项目的单元测试和集成测试代码
 └── weights/                # 存储下载的预训练模型权重 (.pth 文件) 的默认目录
 ```
 
 **需要重点关注的区域：**
 
-*   **`README.md`**: 始终是您的起点。它提供了总体概述、安装说明和基本用法示例。
-*   **`inference_realesrgan.py` & `inference_realesrgan_video.py`**: 这些是您将用于放大图像和视频的主要脚本。
-*   **`inputs/`**: 通常在此处放置要处理的图像或视频。输出通常保存在自动创建的 `results/` 文件夹中。
-*   **`requirements.txt`**: 对于设置包含必要库的 Python 环境至关重要。
-*   **`weights/`**: 您需要下载预训练模型 (通常是 `.pth` 文件) 并将它们放在此处 (或者脚本可能会为您下载它们)。
-*   **`docs/`**: 包含更深入的信息，包括“模型库”(可用预训练模型的列表)、训练指南和常见问题解答。
-*   **`options/`**: 如果您计划训练或微调模型，您将与此目录中的 YAML 配置文件进行交互。
-*   **`realesrgan/`**: 项目的核心，包含超分辨率算法的实际 Python 代码。如果您想修改核心逻辑，您可能才会深入研究此部分。
+*   **`README.md` / `README_CN.md`**: 始终是您的起点。它提供了总体概述、安装说明和基本用法示例。中文用户可优先阅读 `README_CN.md`。
+*   **`inference_realesrgan.py` 和 `inference_realesrgan_video.py`**: 这是您分别用于提升图像和视频分辨率的核心脚本。
+*   **`inputs/`**: 通常在此处放置待处理的图像或视频。处理结果默认保存在自动创建的 `results/` 文件夹中。
+*   **`requirements.txt`**: 对于设置包含必要库的 Python 环境至关重要。请使用 `pip install -r requirements.txt` 命令安装。
+*   **`weights/`**: 您需要将下载的预训练模型 (通常是 `.pth` 文件) 存放到此目录。部分脚本在模型不存在时，可能会尝试自动下载。
+*   **`docs/`**: 包含更深入的文档，如“模型库”(`model_zoo.md`)、“训练指南”(`Training.md`) 和“常见问题解答”(`FAQ.md`)。
+*   **`options/`**: 如果您计划训练或微调模型，需要关注此目录中的 YAML 配置文件。
+*   **`realesrgan/`**: 项目的核心代码库，包含超分辨率算法的 Python 实现。若想深入理解或修改算法，需要研究此目录。
 
-**通常可以忽略的文件 (对于典型用户而言)：**
+**通常可以忽略的文件/目录 (对于项目的普通用户而言)：**
 
-*   `.github/`, `.vscode/`, `.gitignore`, `.pre-commit-config.yaml`, `MANIFEST.in`, `setup.cfg`, `setup.py` (除非您正在打包或为项目开发做出贡献)。
-*   `CODE_OF_CONDUCT.md` (如果您计划贡献或与社区互动，建议阅读一遍)。
-*   `VERSION` (内部版本跟踪)。
-*   `cog.yaml`, `cog_predict.py` (除非您正在使用 Cog)。
+*   `.github/`, `.vscode/`, `.gitignore`, `.pre-commit-config.yaml`, `MANIFEST.in`, `setup.cfg`, `setup.py` (除非您参与项目打包或贡献开发)。
+*   `CODE_OF_CONDUCT.md` (若计划贡献或参与社区讨论，建议阅读)。
+*   `VERSION` (项目内部版本号记录)。
+*   `cog.yaml`, `cog_predict.py` (除非您计划使用 Cog 进行模型部署)。
+*   `assets/` (主要包含文档中引用的图片等资源)。
+*   `experiments/` (主要用于开发者进行实验的配置和脚本)。
+*   `tests/` (项目的测试代码)。
 
 ## 快速上手：让 Real-ESRGAN 跑起来
 
@@ -79,12 +82,12 @@ Real-ESRGAN/
 
 ### 1. 设置您的环境和依赖项
 
-Real-ESRGAN 是一个基于 Python 的项目。您需要 Python 和几个库来运行它。
+Real-ESRGAN 是一个基于 Python 的项目。您需要 Python 和一系列相关库来运行它。
 
 **先决条件：**
 
 *   **Python:** 建议使用 3.7 或更高版本。您可以从 [python.org](https://www.python.org/) 下载，或使用 [Anaconda](https://www.anaconda.com/download) / [Miniconda](https://docs.conda.io/en/latest/miniconda.html) 等发行版。
-*   **PyTorch:** 一个深度学习框架，需要 1.7 或更高版本。您可以在 [pytorch.org](https://pytorch.org/) 找到安装说明。通常最好先安装 PyTorch，并使其与您系统的 CUDA 版本匹配（如果您有 NVIDIA GPU 并希望进行 GPU 加速）。
+*   **PyTorch:** 一个深度学习框架，需要 1.7 或更高版本。您可以在 [pytorch.org](https://pytorch.org/) 找到安装说明。通常最好先安装 PyTorch，并使其与您系统的 CUDA 版本匹配（如果您拥有 NVIDIA GPU 并希望进行 GPU 加速）。
 *   **Git:** 用于克隆代码仓库。
 
 **安装步骤：**
@@ -125,7 +128,7 @@ Real-ESRGAN 提供了易于使用的脚本来进行推理。
 
 在放大任何内容之前，您需要预训练的模型文件 (通常带有 `.pth` 扩展名)。该项目提供了多种模型，包括通用模型和专用于动漫的模型。
 
-*   您可以在 [模型库 (Model Zoo)](docs/model_zoo.md) 中或主 `README.md` 中的链接找到模型列表。
+*   您可以在[模型库 (`docs/model_zoo.md`)](docs/model_zoo.md)中或主 `README.md` 中的链接找到模型列表。
 *   一个常见的通用模型是 `RealESRGAN_x4plus.pth`。
 *   对于动漫，`RealESRGAN_x4plus_anime_6B.pth` 很受欢迎。
 
@@ -189,12 +192,12 @@ Real-ESRGAN 提供了多种方式来定制其行为，从推理过程中的简�
 
 ### 1. 推理定制 (使用 `inference_realesrgan.py`)
 
-主要的推理脚本 `inference_realesrgan.py` (及其视频版本) 提供了几个命令行选项来控制放大过程：
+主要的推理脚本 `inference_realesrgan.py` (及其视频版本 `inference_realesrgan_video.py`) 提供了几个命令行选项来控制放大过程：
 
 *   **`-n, --model_name <model_name>`:**
     *   **用途：** 指定使用哪个预训练模型。`<model_name>` 应对应于 `weights/` 目录中 `.pth` 文件的名称 (不带扩展名)。
     *   **示例：** `-n RealESRGAN_x4plus_anime_6B` 使用动漫专用模型。
-    *   **提示：** 查看 [模型库 (Model Zoo)](docs/model_zoo.md) 以了解可用模型及其预期用途。
+    *   **提示：** 查看[模型库 (`docs/model_zoo.md`)](docs/model_zoo.md)以了解可用模型及其预期用途。
 
 *   **`-i, --input <path_to_input>`:**
     *   **用途：** 输入图像的路径或包含多个图像的文件夹。
@@ -276,7 +279,7 @@ Real-ESRGAN 提供了多种方式来定制其行为，从推理过程中的简�
         python realesrgan/train.py -opt options/my_custom_train_x4.yml
         ```
 
-*   **文档：** 有关训练和各种选项含义的详细指导，请参阅 [Training.md](docs/Training.md) (请注意，此文档可能仍为英文，您可能需要自行翻译或使用翻译工具)。
+*   **文档：** 有关训练和各种选项含义的详细指导，请参阅[训练指南 (`docs/Training.md`)](docs/Training.md)。
 
 通过理解这些定制选项，您可以使 Real-ESRGAN 适应特定的任务、数据集和硬件能力。
 
@@ -370,7 +373,7 @@ Real-ESRGAN 提供了多种方式来定制其行为，从推理过程中的简�
 
 *   **方法:**
     1.  在您的服务器或目标机器上设置 Python 环境 (例如，使用 `venv` 或 `conda` 等虚拟环境)。
-    2.  安装所有必要的依赖 (`pip install -r requirements.txt`, `pip install basicsr facexlib gfpgan`, `python setup.py develop`)。
+    2.  安装所有必要的依赖 (例如，通过 `pip install -r requirements.txt`, `pip install basicsr facexlib gfpgan`, `python setup.py develop`)。
     3.  将您预训练好的模型 (`.pth` 文件) 放入 `weights/` 目录。
     4.  然后，您可以通过编程方式或通过 shell 命令调用 `inference_realesrgan.py` 或 `inference_realesrgan_video.py`。
 *   **使用场景:**
@@ -392,26 +395,29 @@ Real-ESRGAN 提供了多种方式来定制其行为，从推理过程中的简�
         *   预测脚本应该如何运行。
 *   **`cog_predict.py`:**
     *   **目的:** 此脚本为 Cog 定义了预测接口。它通常包含一个 `setup()` 函数 (用于一次性加载模型) 和一个 `predict()` 函数 (用于处理传入的请求并返回结果)。
-    *   它充当 Real-ESRGAN核心推理逻辑的包装器。
+    *   它充当 Real-ESRGAN 核心推理逻辑的包装器。
 *   **优点:**
     *   **可复现性:** 确保您的模型在任何地方都以相同的方式运行。
     *   **可伸缩性:** Cog 容器可以轻松部署在支持 Docker 的云平台上。
-    *   **共享:** Replicate 拥有一个 Cog 模型的公共库，使您可以轻松共享您的工作或创建 Web 演示。主 `README.md` 中提到了 Real-ESRGAN 的 Replicate 演示。
-*   **如何使用:**
-    1.  安装 Cog: `sudo curl -o /usr/local/bin/cog -L "https://github.com/replicate/cog/releases/latest/download/cog_$(uname -s)_$(uname -m)" && sudo chmod +x /usr/local/bin/cog`
-    2.  构建容器: `cog build`
-    3.  本地运行预测: `cog predict -i @input.jpg` (或 `cog.yaml` 中定义的其他输入类型)
-    4.  推送到 Replicate (如果您有账户) 以创建可共享的 Web API 和演示。
+    *   **共享:** Replicate 平台拥有一个 Cog 模型的公共库，使您可以轻松共享您的工作或创建 Web 演示。主 `README.md` 中提到了 Real-ESRGAN 的 Replicate 演示。
+*   **如何使用 (基本流程):**
+    1.  安装 Cog 工具。
+    2.  使用 `cog build` 命令构建容器。
+    3.  本地运行预测进行测试。
+    4.  (可选) 推送到 Replicate 等平台进行分享和部署。
 
 ### 4. 打包为 Python 库
 
 由于该项目本身就是一个 Python 包 (`realesrgan`)，您可以将其作为库集成到其他 Python 应用程序中。
 
-*   **方法:** 通过 `python setup.py develop` 或 `pip install .` 安装后，您可以在自己的 Python 代码中导入 `realesrgan` 的模块和函数。
+*   **方法:** 通过 `python setup.py develop` 或 `pip install .` (在项目根目录) 安装后，您可以在自己的 Python 代码中导入 `realesrgan` 的模块和函数。
     ```python
-    from realesrgan.utils import RealESRGANer
-    from basicsr.archs.rrdbnet_arch import RRDBNet
-    # ... (加载模型、准备输入等)
+    # 示例 (具体实现需参考推理脚本)
+    # from realesrgan.utils import RealESRGANer
+    # from basicsr.archs.rrdbnet_arch import RRDBNet # 假设模型架构
+    # model = RRDBNet(...)
+    # upsampler = RealESRGANer(model_path='weights/your_model.pth', model=model, ...)
+    # output_image = upsampler.enhance(input_image)
     ```
 *   **注意事项:** 这需要对 Real-ESRGAN 的内部组件有更深入的了解，例如如何实例化模型 (`RealESRGANer`)、加载权重以及处理图像张量。推理脚本 (`inference_realesrgan.py`) 为理解这些操作提供了一个很好的起点。
 
@@ -464,12 +470,12 @@ BSD 3-Clause 许可证是一种相对宽松的开源许可证，其核心条款�
     *   输出文件名通常是基于输入文件名添加一个后缀 (默认为 `_out`)，例如，输入 `my_image.png`，输出可能是 `my_image_out.png`。您可以通过 `--suffix` 参数自定义后缀。
 
 *   **视觉检查：**
-    *   **清晰度提升：** 最直观的结果是图像/视频的清晰度和细节应该得到显著提升。比较处理前后的图像，观察线条是否更锐利，纹理是否更清晰， ранее 模糊的区域是否能看清更多细节。
+    *   **清晰度提升：** 最直观的结果是图像/视频的清晰度和细节应该得到显著提升。比较处理前后的图像，观察线条是否更锐利，纹理是否更清晰，先前模糊的区域是否能看清更多细节。
     *   **伪影 (Artifacts)：** 深度学习模型有时会产生一些不自然的痕迹，称为伪影。
         *   **GAN 模型的特性：** Real-ESRGAN (尤其是基于 GAN 的版本，如 `RealESRGAN_x4plus`) 倾向于生成更锐利、细节更丰富的图像，但有时可能会引入一些微小的、不真实的纹理或“振铃”效应 (ringing artifacts)，尤其是在边缘区域。这是 GAN 为了“想象”出细节而可能付出的代价。
         *   **非 GAN 模型：** 像 `RealESRNet_x4plus` 这样的模型 (如果使用)，通常产生的伪影较少，结果更平滑，但可能不如 GAN 模型那样细节惊人。
         *   **分块处理的接缝：** 如果使用了分块处理 (`--tile` 参数设置了一个非零值)，并且分块大小不合适或者图像内容在块边界处有剧烈变化，有时可能会在拼接处看到轻微的接缝。如果遇到这种情况，可以尝试调整 `--tile` 的值，或者在内存允许的情况下不使用分块 (设置为 `0`)。
-    *   **人脸增强效果：** 如果使用了 `--face_enhance` 选项，请特别关注图像中人脸部分的改善情况。GFPGAN 通常能显著提升模糊人脸的质量，但有时也可能对面部特征进行“标准化”处理，或者在极低质量输入下产生不完美的结果。
+    *   **人脸增强效果：** 如果使用了 `--face_enhance` 选项，请特别关注图像中人脸部分的改善情况。GFPGAN 通常能显著提升模糊人脸的质量，但有时也可能对已清晰人脸的特征进行“标准化”处理，或者在极低质量输入下产生不完美的结果。
 
 *   **文件大小和格式：**
     *   输出文件的大小通常会比输入文件大，因为分辨率增加了。
@@ -497,14 +503,14 @@ BSD 3-Clause 许可证是一种相对宽松的开源许可证，其核心条款�
 
 *   **环境问题：**
     *   **依赖缺失/版本冲突：** 大部分问题来源于环境配置。确保严格按照 `requirements.txt` 安装了正确版本的依赖库。使用虚拟环境 (如 `conda` 或 `venv`) 是避免版本冲突的好方法。
-    *   **CUDA/PyTorch 不匹配：** 如果使用 GPU，确保您的 PyTorch 版本与 CUDA驱动程序版本兼容。PyTorch 官网提供了针对不同 CUDA 版本的安装命令。`nvidia-smi` 命令可以查看您的 CUDA 驱动版本。
+    *   **CUDA/PyTorch 不匹配：** 如果使用 GPU，确保您的 PyTorch 版本与 CUDA 驱动程序版本兼容。PyTorch 官网提供了针对不同 CUDA 版本的安装命令。`nvidia-smi` 命令可以查看您的 CUDA 驱动版本。
 
 *   **推理问题：**
     *   **模型文件找不到/不匹配：** 确保 `-n` 或 `--model_name` 参数指定的模型名称与 `weights/` 目录下的 `.pth` 文件名一致 (不含扩展名)，并且模型文件已正确下载。
     *   **输入路径错误：** 检查 `-i` 参数指定的输入文件或文件夹路径是否正确。
     *   **内存不足 (Out of Memory, OOM)：**
-        *   **GPU OOM：** 如果在 GPU 上运行并遇到 OOM，尝试减小 `--tile` 的值 (例如 `256`, `128`)。如果tile值已经很小或为0，可以尝试减小 `--outscale` (如果适用)，或者处理更小的图像。对于视频，可能需要降低处理分辨率或帧率。
-        *   **CPU OOM：** 虽然较少见，但如果系统内存不足，也可能发生。关闭其他占用大量内存的程序。
+        *   **GPU OOM：** 如果在 GPU 上运行并遇到 OOM，尝试减小 `--tile` 的值 (例如 `256`, `128`)。如果 tile 值已经很小或为 0，可以尝试减小 `--outscale` (如果适用)，或者处理更小的图像。对于视频，可能需要降低处理分辨率或帧率。
+        *   **CPU OOM：** 虽然较少见，但如果系统内存不足，也可能发生。可以尝试关闭其他占用大量内存的程序。
     *   **NCNN 可执行文件问题：** 确保下载了与您的操作系统和 GPU 兼容的正确版本的 NCNN 可执行文件。其附带的 `README` 文件通常包含更多故障排除信息。
 
 *   **训练问题：**
